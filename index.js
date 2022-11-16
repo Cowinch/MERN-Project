@@ -1,6 +1,4 @@
 const express = require('express')
-const request = require('request-promise')
-const axios = require('axios')
 const puppeteer = require('puppeteer')
 
 const app = express()

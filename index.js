@@ -15,13 +15,18 @@ app.get('/products/:productId', (req, res) => {
         await page.goto(`https://www.amazon.com/products/dp/${productId}/`)
         const data = {
             title: "",
-            price: ''
+            price: '',
+            reviews: '',
+            reviewRating: '',
+            image: '',
+            url: `https://www.amazon.com/products/dp/${productId}/`
         }
         data.title = await page.$eval("#productTitle", element => element.textContent)
-        console.log(data.title)
 
         data.price = await page.$eval(".a-price .a-offscreen", element => element.textContent)
-        console.log(data.price)
+        data.reviews = await page.$eval("#acrCustomerReviewText", element => element.textContent)
+        data.reviewRating = await page.$eval("#averageCustomerReviews .a-icon-alt", element => element.textContent)
+        data.image = await page.$eval("#landingImage", element => element.src)
         res.send(data)
         await browser.close()
     }

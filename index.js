@@ -11,7 +11,12 @@ app.get('/products/:productId', (req, res) => {
     const { productId } = req.params
 
     async function grabProduct(productId) {
-        const browser = await puppeteer.launch()
+        const browser = await puppeteer.launch({
+            'args' : [
+              '--no-sandbox',
+              '--disable-setuid-sandbox'
+            ]
+          });
         const page = await browser.newPage()
         await page.goto(`https://www.amazon.com/products/dp/${productId}/`)
         const data = {

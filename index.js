@@ -5,6 +5,7 @@ const app = express()
 const PORT = process.env.PORT || 8000
 
 app.use(express.json())
+app.get('/', (req, res) => res.send("Welcome to the default landing page. Use /products/<product id> to choose a produc to scrape"))
 
 app.get('/products/:productId', (req, res) => {
     const { productId } = req.params

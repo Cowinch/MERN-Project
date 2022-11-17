@@ -29,7 +29,8 @@ app.get('/products/:productId', (req, res) => {
       url: `https://www.amazon.com/products/dp/${productId}/`
     }
     data.title = await page.$eval("#productTitle", element => element.textContent)
-
+    //as of november 2022, Amazon has empty spaces at the front and end of their titles. this chained slice removes those.
+    data.title=data.title.slice(8).slice(0,data.title.length-15)
     data.price = await page.$eval(".a-price .a-offscreen", element => element.textContent)
     data.reviews = await page.$eval("#acrCustomerReviewText", element => element.textContent)
     data.reviewRating = await page.$eval("#averageCustomerReviews .a-icon-alt", element => element.textContent)
